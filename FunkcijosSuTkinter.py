@@ -1,6 +1,7 @@
 from tkinter import *
 from spejimai import *
 from instrukcija import *
+from zodziai import *
 import sqlite3
 
 # Pagrindinis langas

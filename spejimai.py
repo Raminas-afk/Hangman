@@ -1,5 +1,5 @@
 import random
-from zodziu_sarasas import *
+from zodziai import lengvu_zodziu_sarasas
 import FunkcijosSuTkinter as fst
 
 
