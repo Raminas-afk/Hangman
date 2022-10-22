@@ -2,7 +2,7 @@ instrukcija = "Bandyk atspėti tris žodžius ir surinkti kuo daugiau taškų ! 
 Sunkumas \n\
 Lengvas: Žodžiai turintys 5 arba mažiau raidžių. \n\
 Vidutinis: Žodžiai turintys tarp 6 ir 8 raidžių. \n\
-Sunkus: Žodžiai turintys daugiau nei 9 raides. \n\
+Sunkus: Žodžiai turintys 9 ar daugiau raidžių. \n\
 \
 Taškai \n\
 Atspėta raidė: +10 taškų \n\
