@@ -3,6 +3,7 @@ from spejimai import *
 from instrukcija import *
 from zodziai import *
 import sqlite3
+import logging
 
 # Pagrindinis langas
 
@@ -23,11 +24,9 @@ root.config(bg="white")
 conn = sqlite3.connect("rezultatai.db")
 c = conn.cursor()
 
-# Boolean kuris padeda atskirti ar bus spėjamas sekantis žodis, ar pradedamas naujas žaidimas
+# Boolean padedantis atskirti ar bus spėjamas sekantis žodis, ar pradedamas naujas žaidimas
 
 naujas_zaidimas = False
-
-# Kitos funkcijos
 
 spejimai = Spejimai()
 
@@ -76,7 +75,6 @@ def atnaujinti_nematoma_zody(spejimas=None):
         teksto_langas2.config(text=spejimai.spejamas_zodis)
 
 
-
 def pradeti_nauja_zaidima():
     global naujas_zaidimas
     naujas_zaidimas = True
@@ -100,6 +98,12 @@ def pradeti_nauja_zaidima():
     atnaujinti_kartuviu_nuotrauka()
     atnaujinti_tasku_langa()
     naujas_zaidimas = False
+    if spejimai.zodis == 1:
+        logging.info(f'Pradedamas naujas žaidimas. Spėjamas žodis - {spejimai.spejamas_zodis} ({spejimai.zodis}/3) \
+        Sunkumas: {spejimai.sunkumas}')
+
+    else:
+        logging.info(f'Spėjamas sekantis žodis. Spėjamas žodis - {spejimai.spejamas_zodis} ({spejimai.zodis}/3)')
 
 
 def atnaujinti_kartuviu_nuotrauka():
@@ -258,16 +262,13 @@ def popup_rezultatas():
     naujas.geometry("200x300+600+340")
     naujas.title("Rezultatai")
     naujas.resizable(False, False)
-    #tekstas = Label(naujas, text="Top 10 rezultatai")
-    #tekstas.place(x=1, y=1)
     rezultatu_db = c.execute('''SELECT * from rezultatai ORDER BY taskai DESC LIMIT 0,10''')
     i = 0
 
     for irasas in rezultatu_db:
         for x in range(len(irasas)):
-            e = Label(naujas, width=10, fg='blue', text=irasas[x], anchor='w', )
+            e = Label(naujas, width=10, fg='black', text=irasas[x], anchor='w', )
             e.grid(row=i, column=x, padx=2)
-
         i = i + 1
 
     isjungti = Button(naujas, text="Gerai", command=naujas.destroy)
@@ -295,10 +296,13 @@ def yrasyti_rezultata(zaidejo_vardas):
     vardas = zaidejo_vardas.get()
     with conn:
         c.execute(f"INSERT INTO Rezultatai VALUES ('{vardas}', '{spejimai.sunkumas}', {spejimai.taskai})")
+    logging.info(
+        f"Išsaugotas naujas rezultatas. Vardas: {vardas}. Sunkumas: {spejimai.sunkumas}. Taškai: {spejimai.taskai}")
 
 
 def iseiti():
     root.quit()
+    logging.info(f"---------------ŽAIDIMAS IŠJUNGTAS---------------")
 
 
 # Meniu toolbaras
@@ -362,7 +366,7 @@ label8 = Label(nuotraukos_frame, image=pergale)
 
 # Klaviatūros mygtukai
 
-# Pirma eile
+# Pirma eilė
 a_button = Button(left_frame, text="A", command=lambda: spejimai.tikrinti_spejima("A"), height=1, width=2)
 a_button.grid(row=0, column=0)
 a2_button = Button(left_frame, text="Ą", command=lambda: spejimai.tikrinti_spejima("Ą"), height=1, width=2)
@@ -445,6 +449,10 @@ bandymu_langas.place(x=170, y=355)
 left_frame.place(x=40, y=200)
 nuotraukos_frame.place(x=360, y=50)
 
+# Paleidus žaidimą nustato pradinius settingus
 pradeti_nauja_zaidima()
+
+# Loggina žaidimo išjungimą spaudžiant X
+root.protocol("WM_DELETE_WINDOW", iseiti())
 
 root.mainloop()
