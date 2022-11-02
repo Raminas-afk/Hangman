@@ -267,7 +267,7 @@ def popup_rezultatas():
 
     for irasas in rezultatu_db:
         for x in range(len(irasas)):
-            e = Label(naujas, width=10, fg='black', text=irasas[x], anchor='w', )
+            e = Label(naujas, width=10, fg='red', text=irasas[x], anchor='w', )
             e.grid(row=i, column=x, padx=2)
         i = i + 1
 
