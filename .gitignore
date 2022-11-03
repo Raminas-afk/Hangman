@@ -1,1 +1,5 @@
 __pycache__/
+/logai.log
+/build/
+/dist/
+.idea

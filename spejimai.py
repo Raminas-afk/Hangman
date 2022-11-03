@@ -3,7 +3,9 @@ from zodziai import lengvu_zodziu_sarasas
 import FunkcijosSuTkinter as fst
 import logging
 
-logging.basicConfig(filename='logai.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s', encoding = 'utf-8')
+logging.basicConfig(filename='logai.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s',
+                    encoding='utf-8')
+
 
 class Spejimai:
 
