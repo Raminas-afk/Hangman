@@ -2,8 +2,8 @@ from tkinter import *
 from spejimai import *
 from instrukcija import *
 from zodziai import *
-import sqlite3
 import logging
+from Kurti_db import *
 
 # Pagrindinis langas
 
@@ -19,14 +19,15 @@ center_y = int(screen_height / 2 - window_height / 2)
 root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 root.config(bg="white")
 
-# SQLite
-
-conn = sqlite3.connect("rezultatai.db")
-c = conn.cursor()
-
 # Boolean padedantis atskirti ar bus spėjamas sekantis žodis, ar pradedamas naujas žaidimas
 
 naujas_zaidimas = False
+
+# Sukuriama nauja duomenų bazė, nustatomas ryšys su ja
+
+conn = sqlite3.connect("rezultatai2.db")
+c = conn.cursor()
+nauja_db()
 
 spejimai = Spejimai()
 
