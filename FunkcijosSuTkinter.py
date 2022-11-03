@@ -25,7 +25,7 @@ naujas_zaidimas = False
 
 # Sukuriama nauja duomenų bazė, nustatomas ryšys su ja
 
-conn = sqlite3.connect("rezultatai2.db")
+conn = sqlite3.connect("rezultatai.db")
 c = conn.cursor()
 nauja_db()
 
