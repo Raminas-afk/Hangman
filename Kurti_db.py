@@ -1,7 +1,6 @@
 import sqlite3
 
 
-
 def nauja_db():
     conn = sqlite3.connect("rezultatai.db")
     c = conn.cursor()
@@ -11,4 +10,3 @@ def nauja_db():
                     sunkumas text,
                     taskai integer
                     )""")
-
