@@ -19,11 +19,11 @@ center_y = int(screen_height / 2 - window_height / 2)
 root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 root.config(bg="white")
 
-# Boolean padedantis atskirti ar bus spėjamas sekantis žodis, ar pradedamas naujas žaidimas
+# Boolean padedantis sutvarkyti pranešimų langus, progreso nuotraukas
 
-naujas_zaidimas = False
+naujas_zaidimas = True
 
-# Sukuriama nauja duomenų bazė, nustatomas ryšys su ja
+# Sukuriama nauja duomenų bazė
 
 conn = sqlite3.connect("rezultatai.db")
 c = conn.cursor()
@@ -312,7 +312,7 @@ meniu = Menu(root)
 root.config(menu=meniu)
 submeniu = Menu(meniu, tearoff=0)
 meniu.add_cascade(label="Meniu", menu=submeniu)
-submeniu.add_command(label="Naujas žodis", command=pradeti_nauja_zaidima)
+submeniu.add_command(label="Naujas žaidimas", command=pradeti_nauja_zaidima)
 
 sunkumo_meniu = Menu(submeniu, tearoff=0)
 sunkumo_meniu.add_command(label="Lengvas", command=lambda: pakeisti_sunkuma("Lengvas"))
@@ -452,8 +452,5 @@ nuotraukos_frame.place(x=360, y=50)
 
 # Paleidus žaidimą nustato pradinius settingus
 pradeti_nauja_zaidima()
-
-# Loggina žaidimo išjungimą spaudžiant X
-root.protocol("WM_DELETE_WINDOW", iseiti())
 
 root.mainloop()
